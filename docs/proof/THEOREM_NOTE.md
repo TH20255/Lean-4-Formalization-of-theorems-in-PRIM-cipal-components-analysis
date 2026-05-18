@@ -12,72 +12,65 @@ The proof skeleton and release imports are summarized in
 ## Mathematical Setting
 
 The theorem works in principal coordinates. Fix a dimension $d$ and use the
-coordinate index set $\operatorname{Idx}(d)$.
+coordinate index set $\mathrm{Idx}(d)$.
 
 The stochastic representation is
 
-$$
+```math
 Y_j(\omega)=R(\omega)\sqrt{\lambda_j}\,O_j(\omega)
-\qquad (j\in \operatorname{Idx}(d)).
-$$
+\qquad (j\in \mathrm{Idx}(d)).
+```
 
 The ordered principal scale parameters satisfy
 
-$$
+```math
 \lambda_0\ge \lambda_1\ge\cdots\ge \lambda_{d-1}\ge 0.
-$$
+```
 
 For a nonnegative scalar radius $q\ge 0$, define the principal half-width
 coordinatewise by
 
-$$
+```math
 w_j(q)=\sqrt{\lambda_j}\,q.
-$$
+```
 
-For a finite coordinate set $I\subseteq \operatorname{Idx}(d)$, the principal
+For a finite coordinate set $I\subseteq \mathrm{Idx}(d)$, the principal
 central box is
 
-$$
-B_q(I)=
-\left\{\omega:
-  \forall i\in I,\ |Y_i(\omega)|\le w_i(q)
-\right\}.
-$$
+```math
+B_q(I)=\{\omega\mid
+  \forall i\in I,\ |Y_i(\omega)|\le w_i(q)\}.
+```
 
 For an orthogonal matrix $U\in O(d)$, write the rotated coordinate vector as
 
-$$
+```math
 (UY)_i(\omega)=\sum_{\ell}U_{i\ell}Y_\ell(\omega).
-$$
+```
 
 The rotated central box is
 
-$$
-B_q^U(I)=
-\left\{\omega:
-  \forall i\in I,\ |(UY)_i(\omega)|\le w_i(q)
-\right\}.
-$$
+```math
+B_q^U(I)=\{\omega\mid
+  \forall i\in I,\ |(UY)_i(\omega)|\le w_i(q)\}.
+```
 
 The covariance below is always taken after conditioning on a box, but its
 entries are still measured in the original principal coordinates. For the
 rotated box, define
 
-$$
-m_{U,I}(j)=
-  \mathbb{E}\left[Y_j\mid B_q^U(I)\right],
-$$
+```math
+m_{U,I}(j)=\mathbb{E}[Y_j\mid B_q^U(I)],
+```
 
 and
 
-$$
+```math
 C_{U,I}(j,\ell)=
-  \mathbb{E}\left[
-    \left(Y_j-m_{U,I}(j)\right)
-    \left(Y_\ell-m_{U,I}(\ell)\right)
-    \,\middle|\, B_q^U(I)
-  \right].
-$$
+  \mathbb{E}[
+    (Y_j-m_{U,I}(j))(Y_\ell-m_{U,I}(\ell))
+    \mid B_q^U(I)].
+```
 
 When the rotation is the identity matrix, this is the principal-box covariance.
 
@@ -92,23 +85,23 @@ There is a tail level $\alpha\in\mathbb{R}$ and a nonnegative radius $q\ge 0$
 such that every coordinate has at least the displayed tail mass on both sides of
 the principal half-width:
 
-$$
+```math
 \alpha\le
 \mu\{\omega:Y_i(\omega)\le -w_i(q)\},
-$$
+```
 
-$$
+```math
 \alpha\le
 \mu\{\omega:w_i(q)\le Y_i(\omega)\}.
-$$
+```
 
 The source also identifies the quantile interval event with the principal box:
 
-$$
-\{\omega:-w_i(q)\le Y_i(\omega)\le w_i(q)
-  \text{ for every } i\in I\}
-=B_q(I).
-$$
+```math
+\{\omega\mid
+  \forall i\in I,\ -w_i(q)\le Y_i(\omega)\le w_i(q)\}
+  =B_q(I).
+```
 
 Lean uses this as the packaged quantile/radius boundary. It does not prove the
 one-dimensional tail inequalities in this release.
@@ -121,20 +114,24 @@ $b-a\le 0$.
 For every coordinate set $J$, conditioning on the principal box gives a
 diagonal covariance matrix. Its diagonal entries are
 
-$$
-C_{\mathrm{id},J}(j,j)=
-\begin{cases}
-b\lambda_j, & j\in J,\\
-a\lambda_j, & j\notin J.
-\end{cases}
-$$
+```math
+C_{\mathrm{id},J}(j,j)=b\lambda_j
+\qquad (j\in J),
+```
+
+and
+
+```math
+C_{\mathrm{id},J}(j,j)=a\lambda_j
+\qquad (j\notin J).
+```
 
 The off-diagonal entries vanish:
 
-$$
+```math
 C_{\mathrm{id},J}(j,\ell)=0
 \qquad (j\ne \ell).
-$$
+```
 
 This assumption is the principal-box moment/formula source. The theorem uses
 these two constants in every later trace formula.
@@ -145,34 +142,30 @@ Fix a cardinality $k$. For every orthogonal matrix $U$ and every coordinate set
 $I$ with $|I|=k$, the rotated conditioned covariance has prescribed diagonal
 entries
 
-$$
+```math
 C_{U,I}(j,j)=D_{U,I}(j),
-$$
+```
 
 where
 
-$$
+```math
 D_{U,I}(j)
 =
 a\lambda_j+
 \mathbf{1}_{j\in I}(b-a)
   \sum_{\ell}U_{j\ell}^{2}\lambda_\ell.
-$$
+```
 
 Equivalently, the stochastic-representation source supplies the weighted
 angular second-moment formula
 
-$$
-\lambda_j\,
-\mathbb{E}\left[
-  R^2 O_j^2
-  \,\middle|\, B_q^U(I)
-\right]
+```math
+\lambda_j\,\mathbb{E}[R^2 O_j^2\mid B_q^U(I)]
 =
 a\lambda_j+
 \mathbf{1}_{j\in I}(b-a)
   \sum_{\ell}U_{j\ell}^{2}\lambda_\ell,
-$$
+```
 
 together with the sign-symmetry information needed to read this as the centered
 second moment $C_{U,I}(j,j)$.
@@ -181,18 +174,18 @@ second moment $C_{U,I}(j,j)$.
 
 The upper-triangular v0 source assumes
 
-$$
+```math
 C_{U,I}(j,\ell)=0
 \qquad (j<\ell).
-$$
+```
 
 Symmetry of covariance supplies the lower-triangular cases. The stronger
 off-diagonal v0 source assumes directly
 
-$$
+```math
 C_{U,I}(j,\ell)=0
 \qquad (j\ne \ell).
-$$
+```
 
 Thus the rotated covariance target is the diagonal matrix with the displayed
 diagonal entries $D_{U,I}(j)$.
@@ -201,43 +194,43 @@ diagonal entries $D_{U,I}(j)$.
 
 The trace objective is the sum of the diagonal entries:
 
-$$
-\operatorname{Obj}(U,I)
+```math
+\mathrm{Obj}(U,I)
 =
 \sum_j D_{U,I}(j).
-$$
+```
 
 Expanding the formula for $D_{U,I}(j)$ gives
 
-$$
-\operatorname{Obj}(U,I)
+```math
+\mathrm{Obj}(U,I)
 =
 a\sum_j\lambda_j
 +
 (b-a)\sum_{j\in I}\sum_{\ell}U_{j\ell}^{2}\lambda_\ell.
-$$
+```
 
 Let $L_k$ be the coordinate set indexing the $k$ largest principal scale
 parameters, and let $T_k$ be the coordinate set indexing the $k$ smallest
 principal scale parameters. Define
 
-$$
-\operatorname{LowerEndpoint}(k)
+```math
+\mathrm{LowerEndpoint}(k)
 =
 a\sum_j\lambda_j
 +
 (b-a)\sum_{j\in L_k}\lambda_j,
-$$
+```
 
 and
 
-$$
-\operatorname{UpperEndpoint}(k)
+```math
+\mathrm{UpperEndpoint}(k)
 =
 a\sum_j\lambda_j
 +
 (b-a)\sum_{j\in T_k}\lambda_j.
-$$
+```
 
 The coefficient $b-a$ is nonpositive, so selecting the largest eigenvalues gives
 the lower endpoint and selecting the smallest eigenvalues gives the upper
@@ -248,13 +241,13 @@ endpoint.
 For every orthogonal matrix $U$ and every coordinate set $I$ with $|I|=k$, the
 checked theorem proves
 
-$$
-\operatorname{LowerEndpoint}(k)
+```math
+\mathrm{LowerEndpoint}(k)
 \le
-\operatorname{Obj}(U,I)
+\mathrm{Obj}(U,I)
 \le
-\operatorname{UpperEndpoint}(k).
-$$
+\mathrm{UpperEndpoint}(k).
+```
 
 The same sandwich is proved for both theorem branches:
 
